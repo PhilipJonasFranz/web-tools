@@ -1,0 +1,65 @@
+export const widgets = [
+    {
+        id: "merge-pdf",
+        icon: "mdi-call-merge",
+        tags: ["PDF"],
+        title: "Merge PDF",
+        description: "Merge multiple PDF files into a single document.",
+    },
+    {
+        id: "split-pdf",
+        icon: "mdi-call-split",
+        tags: ["PDF"],
+        title: "Split PDF",
+        description: "Select pages to cut out of a document.",
+    },
+    {
+        id: "rotate-pdf",
+        icon: "mdi-reload",
+        tags: ["PDF"],
+        title: "Rotate PDF",
+        description: "Rotate selected pages of a document.",
+    },
+    {
+        id: "pdf-to-img",
+        icon: "mdi-swap-horizontal",
+        tags: ["PDF", "Image", "Conversion"],
+        title: "PDF to Image",
+        description: "Convert a PDF document to an image.",
+    },
+    {
+        id: "img-to-pdf",
+        icon: "mdi-swap-horizontal",
+        tags: ["PDF", "Image", "Conversion"],
+        title: "Image to PDF",
+        description: "Convert an image to a PDF document.",
+    },
+    {
+        id: "img-transparency",
+        icon: "mdi-square-opacity",
+        tags: ["Image"],
+        title: "Add transparency to image",
+        description: "Make a certain color value transparent in a selected image.",
+    },
+    {
+        id: "grayscale-img",
+        icon: "mdi-palette",
+        tags: ["Image"],
+        title: "Grayscale image",
+        description: "Grayscale the colors of a selected image.",
+    },
+    {
+        id: "invert-img",
+        icon: "mdi-invert-colors",
+        tags: ["Image"],
+        title: "Invert image colors",
+        description: "Invert the colors of a selected image.",
+    },
+    {
+        id: "convert-img",
+        icon: "mdi-swap-horizontal",
+        tags: ["Image", "Conversion"],
+        title: "Convert image type",
+        description: "Convert between supported image file types.",
+    }
+];

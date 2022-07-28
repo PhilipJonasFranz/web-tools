@@ -1,0 +1,19 @@
+services:
+  frontend:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./web-tools-vue
+    environment:
+      - BACKEND_SERVER="backend"
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+  backend:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./web-tools-go
+    restart: always
+    ports:
+      - "8081:8081"
