@@ -66,7 +66,7 @@ import { HexToRGBA } from 'vuetify/lib/util/colorUtils';
 import FileColorPicker from '../files/FileColorPicker.vue';
 
 export default {
-  name: "WTransparentImage",
+  name: "TTransparentImage",
   components: { FileList, FileColorPicker },
   data: () => ({
     types: ['hex', 'hexa', 'rgba', 'hsla', 'hsva'],
@@ -81,17 +81,17 @@ export default {
       return this.$store.state.settings.selectedUploads;
     },
     getConfiguredColor() {
-      return this.$store.state.widgetRequestConfig.color;
+      return this.$store.state.toolRequestConfig.color;
     },
     getConfiguredSimilarity() {
-      return this.$store.state.widgetRequestConfig.similarity;
+      return this.$store.state.toolRequestConfig.similarity;
     },
     isWaitingForServer() {
       return this.$store.state.waitingForServer;
     },
     color: {
       get() {
-        return this.$store.state.widgetRequestConfig.color;
+        return this.$store.state.toolRequestConfig.color;
       },
       set(value) {
         this.$store.commit("setColor", value);
@@ -99,7 +99,7 @@ export default {
     },
     similarity: {
       get() {
-        return this.$store.state.widgetRequestConfig.similarity;
+        return this.$store.state.toolRequestConfig.similarity;
       },
       set(value) {
         this.$store.commit("setSimilarity", value);

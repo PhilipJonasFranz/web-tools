@@ -1,7 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import { tools } from "./tools"
+
 Vue.use(Vuex)
+
+function findToolByID(id) {
+  let index = tools.findIndex(x => x.id === id);
+  if (index != -1) return tools [index];
+  else return null;
+}
 
 export default new Vuex.Store({
   state: {
@@ -10,15 +18,18 @@ export default new Vuex.Store({
     cookiesEnabled: false,
     waitingForServer: false,
     settings: {
+      enabledTools: [],
+      selectedTool: '',
+      
       selectedTags: [],
-      selectedWidget: '',
+      
       fileCounter: 0,
 
       selectedUploads: [],
 
       darkmode: false,
     },
-    widgetRequestConfig: {
+    toolRequestConfig: {
       color: '',
       similarity: 6,
     },
@@ -36,7 +47,8 @@ export default new Vuex.Store({
         state.cookiesEnabled = true;
 
         state.settings.selectedTags = settings.selectedTags;
-        state.settings.selectedWidget = settings.selectedWidget;
+        state.settings.enabledTools = settings.enabledTools;
+        state.settings.selectedTool = settings.selectedTool;
         state.settings.fileCounter = settings.fileCounter;
         state.settings.darkmode = settings.darkmode;
         
@@ -45,6 +57,15 @@ export default new Vuex.Store({
         //state.uploadedFiles = data;
       }
       else {
+        /* Initialize default workspace */
+        if (state.settings.enabledTools.length == 0) {
+          let initialTools = ["merge-pdf", "img-transparency", "grayscale-img", "invert-img"]
+          initialTools.forEach(x => {
+            let tool = findToolByID(x);
+            if (tool != null) state.settings.enabledTools.push(tool);
+          })
+        }
+
         console.log("Found no existing cookie, user cookie consent is required.")
       }
     },
@@ -70,15 +91,23 @@ export default new Vuex.Store({
       state.settings.darkmode = value;
       if (state.cookiesEnabled) window.$cookies.set("web-tools-settings", JSON.stringify(state.settings));
     },
-    setWidget(state, id) {
-        state.settings.selectedWidget = id;
+    enableTool(state, tool) {
+      state.settings.enabledTools.push(tool)
+      if (state.cookiesEnabled) window.$cookies.set("web-tools-settings", JSON.stringify(state.settings));
+    },
+    disableTool(state, id) {
+      state.settings.enabledTools = state.settings.enabledTools.filter(x => x.id !== id);
+      if (state.cookiesEnabled) window.$cookies.set("web-tools-settings", JSON.stringify(state.settings));
+    },
+    setTool(state, id) {
+        state.settings.selectedTool = id;
         if (state.cookiesEnabled) window.$cookies.set("web-tools-settings", JSON.stringify(state.settings));
     },
     setSimilarity(state, value) {
-      state.widgetRequestConfig.similarity = value;
+      state.toolRequestConfig.similarity = value;
     },
     setColor(state, value) {
-      state.widgetRequestConfig.color = value;
+      state.toolRequestConfig.color = value;
     },
     selectTag(state, tag) {
         if (state.settings.selectedTags.includes(tag)) {

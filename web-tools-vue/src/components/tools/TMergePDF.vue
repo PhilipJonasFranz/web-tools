@@ -38,7 +38,7 @@ import FileList from '../files/FileList.vue';
 import FileListDraggable from '../files/FileListDraggable.vue';
 
 export default {
-  name: "WMergePDF",
+  name: "TMergePDF",
   components: { FileList, FileListDraggable },
   computed: {
     getSelectedUploads() {

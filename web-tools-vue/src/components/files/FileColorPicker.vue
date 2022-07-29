@@ -73,7 +73,7 @@ export default {
     computed: {
         color: {
             get() {
-                return this.$store.state.widgetRequestConfig.color;
+                return this.$store.state.toolRequestConfig.color;
             },
             set(value) {
                 this.$store.commit("setColor", value);

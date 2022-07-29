@@ -29,7 +29,7 @@ import { handleFileRequest } from '../../requestHandler'
 import FileList from '../files/FileList.vue';
 
 export default {
-  name: "WGrayscaleImage",
+  name: "TGrayscaleImage",
   components: { FileList },
   computed: {
     getSelectedUploads() {

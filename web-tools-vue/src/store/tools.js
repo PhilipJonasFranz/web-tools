@@ -1,4 +1,4 @@
-export const widgets = [
+export const tools = [
     {
         id: "merge-pdf",
         icon: "mdi-call-merge",

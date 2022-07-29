@@ -62,17 +62,12 @@
         </template>
       </v-banner>
 
-      <v-container v-if="!hasWidgetSelected">
-        <div v-if="isOnMobile">
-          <FileManager v-bind:showGetStartedCard=false class="mb-5 mt-3"></FileManager>
-        </div>
-        <div v-else>
-          <FileManager v-bind:showGetStartedCard=false class="mb-15 mt-15"></FileManager>
-        </div>
-        <WidgetExplorer class="mb-3" />
+      <v-container v-if="!hasToolSelected">
+        <FileManager v-bind:showGetStartedCard=false></FileManager>
+        <ToolExplorer class="mb-3" />
       </v-container>
       <v-container v-else>
-        <WidgetPane />
+        <ToolPane />
       </v-container>
     </v-main>
 
@@ -102,16 +97,16 @@
 </style>
 
 <script>
-import WidgetExplorer from "./components/WidgetExplorer.vue";
-import WidgetPane from "./components/WidgetPane.vue";
+import ToolExplorer from "./components/ToolExplorer.vue";
+import ToolPane from "./components/ToolPane.vue";
 
 import FileManager from "./components/files/FileManager.vue";
 
 export default {
   name: 'App',
   components: {
-    WidgetExplorer,
-    WidgetPane,
+    ToolExplorer,
+    ToolPane,
     FileManager,
   },
   created() {
@@ -126,14 +121,11 @@ export default {
     cookies: false,
   }),
   computed: {
-    hasWidgetSelected() {
-      return this.$store.state.settings.selectedWidget;
+    hasToolSelected() {
+      return this.$store.state.settings.selectedTool;
     },
     hasGivenCookieConsent() {
       return this.$store.state.hasGivenCookieConsent;
-    },
-    isOnMobile() {
-      return window.innerWidth < 600;
     }
   },
   methods: {
@@ -144,7 +136,7 @@ export default {
     goHome() {
       this.$store.commit("clearSelection");
       this.$store.state.waitingForServer = false;
-      this.$store.commit("setWidget", '');
+      this.$store.commit("setTool", '');
     },
     setCookies() {
       if (this.cookies) this.allowCookies();
