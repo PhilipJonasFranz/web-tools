@@ -14,26 +14,37 @@ function findToolByID(id) {
 export default new Vuex.Store({
   state: {
     tags: ["PDF", "Image", "Conversion", "Media"],
+    
+    /* Cookie Settings */
     hasGivenCookieConsent: false,
     cookiesEnabled: false,
+    
+    /* Overall App State */
     waitingForServer: false,
+    isEditingTools: false,
+    
+    /* Workspace Settings that are saved into cookies */
     settings: {
-      enabledTools: [],
+      /* Tool Settings */
       selectedTool: '',
+      enabledTools: [],
       
       selectedTags: [],
       
       fileCounter: 0,
-
       selectedUploads: [],
 
       darkmode: false,
     },
+
+    /* Tool request settings */
     toolRequestConfig: {
       color: '',
       similarity: 6,
     },
-    uploadedFiles: []
+
+    /* File Management */
+    uploadedFiles: [],
   },
   mutations: {
     loadDataFromCookies(state) {
@@ -54,7 +65,6 @@ export default new Vuex.Store({
         
         /* Copy file uploads from cookie */
         // TODO: Need to encode files as base64 to save to cookie
-        //state.uploadedFiles = data;
       }
       else {
         /* Initialize default workspace */
@@ -105,6 +115,13 @@ export default new Vuex.Store({
     },
     setSimilarity(state, value) {
       state.toolRequestConfig.similarity = value;
+    },
+    setIsEditingTools(state, value) {
+      state.isEditingTools = value;
+    },
+    setEnabledTools(state, value) {
+      state.settings.enabledTools = value;
+      if (state.cookiesEnabled) window.$cookies.set("web-tools-settings", JSON.stringify(state.settings));
     },
     setColor(state, value) {
       state.toolRequestConfig.color = value;

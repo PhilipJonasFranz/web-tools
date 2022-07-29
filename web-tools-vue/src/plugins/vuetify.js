@@ -1,9 +1,11 @@
 import Vue from 'vue';
-import Vuetify, { VLayout } from 'vuetify/lib'
+import Vuetify, { VLayout, VRow } from 'vuetify/lib'
 
 Vue.use(Vuetify, {
+  /* Required to use these components as parents for draggables */
   components: {
-    VLayout
+    VLayout,
+    VRow
   }
 })
 

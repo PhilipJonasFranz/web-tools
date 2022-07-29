@@ -1,48 +1,32 @@
 <template>
     <div>
         <div class="align-vertical">
-            <p class="text-h4 mb-3">Available Tools</p>
-            <v-btn class="ml-2" icon @click="editTools = !editTools">
-                <v-icon v-if="editTools" size="30">mdi-check</v-icon>
-                <v-icon v-else size="30">mdi-pencil</v-icon>
+            <p class="text-h4 mb-0">Available Tools</p>
+            <v-btn v-if="isEditingTools" class="ml-2" icon @click="showDialog = true">
+                <v-icon size="30">mdi-plus</v-icon>
+            </v-btn>
+            <v-btn class="ml-2" icon @click="isEditingTools = !isEditingTools">
+                <v-icon v-if="isEditingTools" size="30">mdi-check</v-icon>
+                <v-icon v-else size="25">mdi-pencil</v-icon>
             </v-btn>
         </div>
-        <TagList />
-        <v-row>
+
+        <TagList class="mb-2" />
+
+        <v-row v-if="!isOnMobile" class="pa-6">
+            <draggable tag="v-row" v-model="enabledTools">
+                <v-col v-for="tool in getToolSelection" :key="tool.id" class="pa-0 mr-5 mb-5">
+                    <ToolDraggablePane v-bind:tool=tool></ToolDraggablePane>
+                </v-col>
+            </draggable>
+        </v-row>
+        <v-row v-else>
+            <!-- Drag-an-drop re-ordering is currently not supported on mobile  -->
+            <!-- as there are some weird bugs related to the layout, and the    -->
+            <!-- fact that it almost becomes impossible to reliably scroll with -->
+            <!-- with drag-and-drop enabled.                                    -->
             <v-col v-for="tool in getToolSelection" :key="tool.id">
-                <v-hover v-slot="{ hover }">
-                    <v-card height=120 :elevation="hover ? 8 : 2" @click="interactWithTool(tool.id)">
-                        <v-list-item three-line>
-                            <v-list-item-content>
-                                <v-list-item-title class="text-h5 mb-3">
-                                    {{ tool.title }}
-                                </v-list-item-title>
-                                <v-list-item-subtitle class="mb-4">{{ tool.description }}</v-list-item-subtitle>
-                            </v-list-item-content>
-                            <v-list-item-avatar size="80">
-                                <v-icon size="60">
-                                    {{ tool.icon }}
-                                </v-icon>
-                            </v-list-item-avatar>
-                        </v-list-item>
-                    </v-card>
-                </v-hover>
-            </v-col>
-            <v-col v-if="editTools">
-                <v-hover v-slot="{ hover }">
-                    <v-card class="center-card" height=120 :elevation="hover ? 8 : 2" @click="openAddToolDialog">
-                        <v-list-item three-line>
-                            <v-list-item-content>
-                                <v-icon size="60">
-                                    mdi-plus
-                                </v-icon>
-                                <p>
-                                    Add additional tools
-                                </p>
-                            </v-list-item-content>
-                        </v-list-item>
-                    </v-card>
-                </v-hover>
+                <ToolDraggablePane v-bind:tool=tool></ToolDraggablePane>
             </v-col>
         </v-row>
 
@@ -108,17 +92,37 @@
 </style>
 
 <script>
+import draggable from "vuedraggable";
 import TagList from "./TagList.vue";
 import { tools } from "../store/tools"
+import ToolDraggablePane from "./ToolDraggablePane.vue";
 
 export default {
     name: 'ToolExplorer',
-    components: { TagList },
+    components: { draggable, TagList, ToolDraggablePane },
     data: () => ({
-        editTools: false,
         showDialog: false,
     }),
     computed: {
+        isOnMobile() {
+            return window.innerWidth < 600;
+        },
+        isEditingTools: {
+            get() {
+                return this.$store.state.isEditingTools;
+            },
+            set(val) {
+                this.$store.commit("setIsEditingTools", val);
+            }
+        },
+        enabledTools: {
+            get() {
+                return this.$store.state.settings.enabledTools;
+            },
+            set(val) {
+                this.$store.commit("setEnabledTools", val);
+            }
+        },
         getSelectedTool() {
             return this.$store.state.settings.selectedTool;
         },
@@ -157,10 +161,6 @@ export default {
         },
         enableTool(tool) {
             this.$store.commit("enableTool", tool);
-        },
-        interactWithTool(id) {
-            if (this.editTools) this.$store.commit("disableTool", id);
-            else this.$store.commit("setTool", id);
         },
         openAddToolDialog() {
             this.showDialog = true;
