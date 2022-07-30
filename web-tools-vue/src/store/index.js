@@ -69,7 +69,7 @@ export default new Vuex.Store({
       else {
         /* Initialize default workspace */
         if (state.settings.enabledTools.length == 0) {
-          let initialTools = ["merge-pdf", "img-transparency", "grayscale-img", "invert-img"]
+          let initialTools = ["merge-pdf", "mathjax-viewer", "img-transparency", "grayscale-img", "invert-img"]
           initialTools.forEach(x => {
             let tool = findToolByID(x);
             if (tool != null) state.settings.enabledTools.push(tool);

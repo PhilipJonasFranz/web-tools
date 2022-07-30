@@ -9,6 +9,9 @@
     <div v-else-if="getSelectedTool === 'invert-img'">
       <TInvertImage />
     </div>
+    <div v-else-if="getSelectedTool === 'mathjax-viewer'">
+      <TMathjaxViewer/>
+    </div>
     <div v-else>
       <TMergePDF />
     </div>
@@ -20,6 +23,7 @@ import TMergePDF from './tools/TMergePDF.vue';
 import TGrayscaleImage from './tools/TGrayscaleImage.vue';
 import TTransparentImage from './tools/TTransparentImage.vue';
 import TInvertImage from './tools/TInvertImage.vue';
+import TMathjaxViewer from './tools/TMathjaxViewer.vue';
 
 export default {
   name: "ToolPane",
@@ -27,8 +31,9 @@ export default {
     TMergePDF,
     TGrayscaleImage,
     TTransparentImage,
-    TInvertImage
-  },
+    TInvertImage,
+    TMathjaxViewer
+},
   computed: {
     getSelectedTool() {
       return this.$store.state.settings.selectedTool;

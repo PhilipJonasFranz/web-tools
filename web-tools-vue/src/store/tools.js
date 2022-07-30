@@ -61,5 +61,12 @@ export const tools = [
         tags: ["Image", "Conversion"],
         title: "Convert image type",
         description: "Convert between supported image file types.",
-    }
+    },
+    {
+        id: "mathjax-viewer",
+        icon: "mdi-calculator-variant-outline",
+        tags: ["Conversion"],
+        title: "Mathjax Viewer",
+        description: "Render Latex Equations using MathJax.",
+    },
 ];
