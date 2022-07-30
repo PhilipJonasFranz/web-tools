@@ -24,6 +24,10 @@ Below you can find a list of tools that are included in this toolbox:
 - Image color inversion
 - Add transparency to images
 
+#### Miscellaneous
+
+- Latex Equation Mathjax Viewer
+
 ### Additionally:
 
 - Settings persistence with cookies
