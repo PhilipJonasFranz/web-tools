@@ -57,8 +57,8 @@
             </v-list>
 
         </v-card>
-        <v-card v-else class="justify-center center-card" height="150px">
-            <p class="text-h5 mb-3 ml-10">Upload a file to get started!</p>
+        <v-card v-else class="center-card" height="150px">
+            <p class="mb-3" style="font-size: 20px;">Upload a file to get started!</p>
         </v-card>
     </div>
 </template>

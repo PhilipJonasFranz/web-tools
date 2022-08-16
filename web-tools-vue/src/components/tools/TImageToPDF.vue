@@ -1,14 +1,14 @@
 <template>
   <div>
-    <p class="text-h4 mb-3">Merge PDFs</p>
+    <p class="text-h4 mb-3">Convert Image to PDF</p>
 
     <v-card class="pa-3 mb-5">
       <p class="text-h5 mb-3">Usage</p>
 
       <ul class="mb-1">
-        <li>Select two or more PDF documents from the file list below.</li>
-        <li>Adjust the order of the documents by dragging them into the correct order.</li>
-        <li>Selected PDFs are merged in the configured order.</li>
+        <li>Select one or more images from the file list below.</li>
+        <li>Adjust the order of the images by dragging them into the correct order.</li>
+        <li>A PDF document is created that contains the selected images, one image per page.</li>
       </ul>
     </v-card>
 
@@ -45,7 +45,7 @@ export default {
       return this.$store.state.settings.selectedUploads
     },
     validate() {
-      return this.$store.state.settings.selectedUploads.length > 1;
+      return this.$store.state.settings.selectedUploads.length > 0;
     },
     isWaitingForServer() {
       return this.$store.state.waitingForServer;
@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     sendRequest() {
-      handleFileDownloadRequest("document", "merge", [], this.getSelectedUploads, "merged.pdf")
+      handleFileDownloadRequest("document", "image-to-pdf", [], this.getSelectedUploads, "converted.pdf")
     }
   }
 }

@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-func DecodaDocumentAndSaveToFile(rawData string) string {
+func DecodeFileAndSaveToFile(rawData string, filetype string) string {
 	/* Cut off prefix "data:application/pdf;base64," */
 	rawData = rawData[strings.IndexByte(rawData, ',')+1:]
 
@@ -20,7 +20,7 @@ func DecodaDocumentAndSaveToFile(rawData string) string {
 	dataHash := Hash(rawData)
 
 	/* Construct filepath for document in cache */
-	targetPath := "cache/" + dataHash + ".pdf"
+	targetPath := "cache/" + dataHash + "." + filetype
 
 	if _, err := os.Stat(targetPath); errors.Is(err, os.ErrNotExist) {
 		/*

@@ -50,8 +50,7 @@ export default new Vuex.Store({
     loadDataFromCookies(state) {
       /* If cookie exists, cookie consent has been given prior */
       var settings = window.$cookies.get("web-tools-settings");
-      //var data = window.$cookies.get("web-tools-data");
-      
+
       if (settings) {
         /* Cookie exists, copy settings from cookie */
         state.hasGivenCookieConsent = true;
@@ -62,14 +61,11 @@ export default new Vuex.Store({
         state.settings.selectedTool = settings.selectedTool;
         state.settings.fileCounter = settings.fileCounter;
         state.settings.darkmode = settings.darkmode;
-        
-        /* Copy file uploads from cookie */
-        // TODO: Need to encode files as base64 to save to cookie
       }
       else {
         /* Initialize default workspace */
         if (state.settings.enabledTools.length == 0) {
-          let initialTools = ["merge-pdf", "mathjax-viewer", "img-transparency", "grayscale-img", "invert-img"]
+          let initialTools = ["merge-pdf", "rotate-pdf", "img-to-pdf", "graphviz-viewer", "mathjax-viewer", "img-transparency", "grayscale-img", "invert-img"]
           initialTools.forEach(x => {
             let tool = findToolByID(x);
             if (tool != null) state.settings.enabledTools.push(tool);
@@ -86,14 +82,12 @@ export default new Vuex.Store({
 
       if (state.cookiesEnabled) {
         /* Since we enabled cookies, create initial cookies */
-        //window.$cookies.set("web-tools-data", JSON.stringify(state.uploadedFiles));
         window.$cookies.set("web-tools-settings", JSON.stringify(state.settings));
       }
       else {
         console.log("Deleting")
 
         /* Delete all remaining cookies */
-        //window.$cookies.remove("web-tools-data");
         window.$cookies.remove("web-tools-settings");
       }
     },
@@ -173,12 +167,10 @@ export default new Vuex.Store({
     uploadFile(state, file) {
       let fileID = state.settings.fileCounter++;
       state.uploadedFiles.push({ id: fileID, name: file.name, file: file });
-      //if (state.cookiesEnabled) window.$cookies.set("web-tools-data", JSON.stringify(state.uploadedFiles));
     },
     deleteFile(state, id) {
       state.settings.selectedUploads = state.settings.selectedUploads.filter(x => x.id !== id);
       state.uploadedFiles = state.uploadedFiles.filter(upload => upload.id !== id);
-      //if (state.cookiesEnabled) window.$cookies.set("web-tools-data", JSON.stringify(state.uploadedFiles));
     },
     moveFileUp(state, id) {
       let uploads = state.uploadedFiles;
@@ -192,7 +184,6 @@ export default new Vuex.Store({
           return;
         }
       }
-      //if (state.cookiesEnabled) window.$cookies.set("web-tools-data", JSON.stringify(state.uploadedFiles));
     },
     moveFileDown(state, id) {
       let uploads = state.uploadedFiles;
@@ -206,7 +197,6 @@ export default new Vuex.Store({
           return;
         }
       }
-      //if (state.cookiesEnabled) window.$cookies.set("web-tools-data", JSON.stringify(state.uploadedFiles));
     }
   },
   actions: {

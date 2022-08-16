@@ -1,5 +1,12 @@
 export const tools = [
     {
+        id: "graphviz-viewer",
+        icon: "mdi-graph",
+        tags: ["PDF"],
+        title: "Graphviz Viewer",
+        description: "Display Graphviz Graphs written in DOT.",
+    },
+    {
         id: "merge-pdf",
         icon: "mdi-call-merge",
         tags: ["PDF"],
