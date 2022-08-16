@@ -17,6 +17,8 @@ Below you can find a list of tools that are included in this toolbox:
 #### PDF Processing
 
 - Merge PDF documents
+- Rotate PDF documents
+- Convert images to PDF
 
 #### Image Processing
 
@@ -27,9 +29,12 @@ Below you can find a list of tools that are included in this toolbox:
 #### Miscellaneous
 
 - Latex Equation Mathjax Viewer
+- Graphviz Viewer
 
 ### Additionally:
 
+- Workspace customization
+- Mobile support
 - Settings persistence with cookies
 - Darkmode
 
